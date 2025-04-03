@@ -9,9 +9,12 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
 ```{r}
-#This rmd file won't run on its own because it contains data which needs to be downloaded to the users laptop. You need to dowload my github repository which contains the knitted html, rmd file and relevant data files used in the rmd. After the repo has been downloaded, select open project in R studio and click on the downloaded repo, making sure that all the files appear in the 'files' tab on the right of the interface screen. The link to the repository is: 
+#The link to the github repository is: https://github.com/ZigiButtercup/SARSvariantsassignment7
+
+#This rmd file won't run on its own because it contains data which needs to be downloaded to the users laptop. You need to dowload my github repository which contains the knitted html, rmd file and relevant data files used in the rmd. After the repo has been downloaded, select open project in R studio and click on the downloaded repo, making sure that all the files appear in the 'files' tab on the right of the interface screen.
+
+
 
 ```
 
@@ -48,6 +51,10 @@ sapply(c("data"), function(dir) {
     if (!dir.exists(dir_path)) dir.create(dir_path, recursive = TRUE)
 })
 ```
+
+## Introduction
+
+This analysis aims to investigate the COVID-19 Genomics UK Consortium (COG-UK) genomic sequence data for England, which was collected by the Wellcome Sanger Institute. COVID-19 is a respiratory illness caused by the SARS-CoV-2 virus that was first identified in Wuhan, China in late 2019. The virus quickly spread worldwide, leading to a global pandemic. Here, I analyse the growth and reproduction rates of SARS-CoV-2 variants using the COG-UK data, as well as exploring the impact of differing sampling strategies, such as those used to collect the ONS-CIS (Office for National Statistics COVID-19 Infection Survey) data.
 
 ### **Q1.1: Download the dataset:**
 
@@ -305,6 +312,7 @@ ggplot(BA.2_ONS_data, aes(x = collection_date_bin, y = lineage_frequency)) +
   ) +
   theme_minimal()
 ```
+
 ### **Q2.2: Analysis: compare the two trajectories.**
 
 **Is there a difference in the timing of BA.2’s rise and when it reaches fixation?**
@@ -331,7 +339,6 @@ logistic_growth <- function(t, s, f0) {
   (f0 * exp(s * t)) / (1 + f0 * (exp(s * t) - 1))
 }
 ```
-
 
 ```{r estimate-delta-growth-part1a, echo=TRUE, message=FALSE, warning=FALSE}
 #filter data for Delta
@@ -623,7 +630,6 @@ print(paste("Estimated fixation date:", as.character(fixation_date)))
 ```
 
 BA.2: s = 0.104, t = 96.68 days.
-
 
 | Strain | Selective Advantage (s) | Time to fixation (t) |
 |--------|-------------------------|----------------------|
@@ -947,8 +953,6 @@ plot(rt_results, what = "R", legend = FALSE) +
 #view the R summary table
 head(rt_results$R)
 ```
-
-
 
 **Compare your 𝑅𝑡 estimate to the one calculated during the practical using the ONS-CIS dataset. Reflect on whether the two estimates differ significantly. Which estimate do you consider more reliable, and why?**
 
